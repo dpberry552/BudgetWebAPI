@@ -20,25 +20,33 @@ namespace BudgetWebAPI.Controllers
             }
         }
 
-        // GET api/values/5
-        public string Get(int id)
+        [Route("api/account/{id}")]
+        public BusinessObject<Account> Get(int id)
         {
-            return "value";
+            using (var db = DBConnection.GetConnection())
+            {
+                return Account.GetById(db, id);
+            }
         }
 
-        // POST api/values
-        public void Post([FromBody]string value)
+        [HttpPost]
+        [Route("api/account")]
+        public void Post([FromBody]Account acct)
         {
+            using(var db = DBConnection.GetConnection())
+            {
+                Account.Persist(db, acct);
+            }
         }
 
-        // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
+        [HttpDelete]
+        [Route("api/account/{id}")]
         public void Delete(int id)
         {
+            using(var db = DBConnection.GetConnection())
+            {
+                Account.Delete(db, id);
+            }
         }
     }
 }
