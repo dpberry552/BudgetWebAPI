@@ -29,6 +29,15 @@ namespace BudgetWebAPI.Controllers
             }
         }
 
+        [Route("api/account/user/{id}")]
+        public IEnumerable<BusinessObject<Account>> GetAccountsForUser(int id)
+        {
+            using (var db = DBConnection.GetConnection())
+            {
+                return Account.GetByUserId(db, id);
+            }
+        }
+
         [HttpPost]
         [Route("api/account")]
         public void Post([FromBody]Account acct)
