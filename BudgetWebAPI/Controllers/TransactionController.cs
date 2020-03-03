@@ -19,5 +19,14 @@ namespace BudgetWebAPI.Controllers
                 return Transaction.GetAll(db);
             }
         }
+
+        [Route("api/transaction/account/{id}")]
+        public IEnumerable<Transaction> GetForAccount(int id)
+        {
+            using (var db = DBConnection.GetConnection())
+            {
+                return Transaction.GetByAccountId(db, id);
+            }
+        }
     }
 }
