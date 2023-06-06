@@ -28,5 +28,15 @@ namespace BudgetWebAPI.Controllers
                 return Transaction.GetByAccountId(db, id);
             }
         }
+
+        [HttpPost]
+        [Route("api/transaction")]
+        public void Post([FromBody] Transaction t)
+        {
+            using (var db = DBConnection.GetConnection())
+            {
+                Transaction.Persist(db, t);
+            }
+        }
     }
 }
